@@ -156,6 +156,33 @@ def get_voters():
         }), 500
 
 
+@app.route('/api/voting-status')
+def voting_status():
+    """Check if all accounts have voted"""
+    try:
+        accounts = web3.eth.accounts
+        all_voted = True
+        voted_count = 0
+
+        for account in accounts:
+            has_voted = contract.functions.hasVoted(account).call()
+            if has_voted:
+                voted_count += 1
+            else:
+                all_voted = False
+
+        return jsonify({
+            'success': True,
+            'all_voted': all_voted,
+            'voted_count': voted_count,
+            'total_accounts': len(accounts)
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': str(e)
+        }), 500
+
 if __name__ == '__main__':
     print("=" * 50)
     print("VoteChain - Blockchain Voting System")

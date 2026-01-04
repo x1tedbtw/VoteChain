@@ -30,27 +30,39 @@
                 </div>
             </div>
         </div>
-
         <div class="voting-section">
             <h2>Cast Your Vote</h2>
 
-            <div class="account-selector">
-                <label for="voterAccount">Select Voter Account:</label>
-                <select id="voterAccount">
-                    <option value="">Loading accounts...</option>
-                </select>
+            <!-- Voting Finished Message (hidden by default) -->
+            <div class="voting-finished" id="votingFinished" style="display: none;">
+                <div class="finished-icon">🎉</div>
+                <h3>Voting Has Finished!</h3>
+                <p>All accounts have cast their votes.</p>
+                <p class="finished-stats" id="finishedStats">
+                    <strong>Total Votes:</strong> <span id="finishedTotal">0</span> / <span id="finishedMax">10</span>
+                </p>
             </div>
 
-            <div class="vote-buttons">
-                <button class="vote-btn yes-btn" onclick="castVote(true)">
-                    ✓ Vote YES
-                </button>
-                <button class="vote-btn no-btn" onclick="castVote(false)">
-                    ✗ Vote NO
-                </button>
-            </div>
+                <!-- Voting Form (shown by default) -->
+                <div id="votingForm">
+                    <div class="account-selector">
+                        <label for="voterAccount">Select Voter Account:</label>
+                        <select id="voterAccount">
+                            <option value="">Loading accounts...</option>
+                        </select>
+                    </div>
 
-            <div class="message" id="message"></div>
+                    <div class="vote-buttons">
+                        <button class="vote-btn yes-btn" onclick="castVote(true)">
+                            ✓ Vote YES
+                        </button>
+                        <button class="vote-btn no-btn" onclick="castVote(false)">
+                            ✗ Vote NO
+                        </button>
+                    </div>
+
+                    <div class="message" id="message"></div>
+                </div>
         </div>
 
         <div class="results-section">
