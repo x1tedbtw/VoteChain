@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoteChain - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗳️ VoteChain</h1>
+            <p class="subtitle">Blockchain-Based Voting System</p>
+        </header>
+
+        <div class="blockchain-info" id="blockchainInfo">
+            <h3>⛓️ Blockchain Status</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label">Contract:</span>
+                    <span class="value" id="contractAddress">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Block Number:</span>
+                    <span class="value" id="blockNumber">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Status:</span>
+                    <span class="value status" id="status">🟢 Connected</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="voting-section">
+            <h2>Cast Your Vote</h2>
+
+            <div class="account-selector">
+                <label for="voterAccount">Select Voter Account:</label>
+                <select id="voterAccount">
+                    <option value="">Loading accounts...</option>
+                </select>
+            </div>
+
+            <div class="vote-buttons">
+                <button class="vote-btn yes-btn" onclick="castVote(true)">
+                    ✓ Vote YES
+                </button>
+                <button class="vote-btn no-btn" onclick="castVote(false)">
+                    ✗ Vote NO
+                </button>
+            </div>
+
+            <div class="message" id="message"></div>
+        </div>
+
+        <div class="results-section">
+            <h2>📊 Voting Results</h2>
+            <div class="results-container">
+                <div class="result-box yes-box">
+                    <div class="result-label">YES</div>
+                    <div class="result-count" id="yesCount">0</div>
+                </div>
+                <div class="result-box no-box">
+                    <div class="result-label">NO</div>
+                    <div class="result-count" id="noCount">0</div>
+                </div>
+                <div class="result-box total-box">
+                    <div class="result-label">TOTAL</div>
+                    <div class="result-count" id="totalCount">0</div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-yes" id="progressYes"></div>
+                <div class="progress-no" id="progressNo"></div>
+            </div>
+        </div>
+
+        <div class="voters-section">
+            <h2>👥 Voters List</h2>
+            <div id="votersList">Loading...</div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
