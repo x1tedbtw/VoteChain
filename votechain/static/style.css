@@ -44,6 +44,7 @@ header h1 {
 .blockchain-info h3 {
     color: #667eea;
     margin-bottom: 15px;
+    font-size: 1.3em;
 }
 
 .info-grid {
@@ -55,6 +56,7 @@ header h1 {
 .info-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     background: #f8f9fa;
     border-radius: 8px;
@@ -63,17 +65,19 @@ header h1 {
 .label {
     font-weight: 600;
     color: #495057;
+    font-size: 0.95em;
 }
 
 .value {
     color: #212529;
     font-family: 'Courier New', monospace;
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 
 .status {
     color: #28a745;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 0.95em;
 }
 
 .voting-section, .results-section, .voters-section {
