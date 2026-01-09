@@ -1,7 +1,14 @@
 from web3 import Web3
-from solcx import compile_source
 import json
+from solcx import compile_source, install_solc, set_solc_version
 
+
+# Install solc if not already installed
+try:
+    install_solc('0.8.0')  # or whatever version your contract uses
+    set_solc_version('0.8.0')
+except Exception as e:
+    print(f"Solc installation note: {e}")
 # Connect to Ganache
 ganache_url = "http://127.0.0.1:7545"  # Default Ganache GUI port
 web3 = Web3(Web3.HTTPProvider(ganache_url))

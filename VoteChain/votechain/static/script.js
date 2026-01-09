@@ -294,3 +294,44 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
+
+// Reset voting
+async function resetVoting() {
+    if (!confirm('Are you sure you want to reset all votes? This action will be recorded on the blockchain.')) {
+        return;
+    }
+
+    const resetBtn = document.querySelector('.reset-btn');
+    resetBtn.disabled = true;
+    resetBtn.textContent = '⏳ Resetting...';
+
+    try {
+        const response = await fetch('/api/reset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showMessage(`✓ Voting reset successfully! Transaction: ${data.transaction_hash.substring(0, 20)}...`, 'success');
+
+            // Reload all data
+            setTimeout(() => {
+                loadAccounts();
+                loadResults();
+                loadVoters();
+                loadBlockchainInfo();
+            }, 1000);
+        } else {
+            showMessage('❌ ' + data.message, 'error');
+        }
+    } catch (error) {
+        showMessage('❌ Error resetting votes: ' + error.message, 'error');
+    } finally {
+        resetBtn.disabled = false;
+        resetBtn.textContent = '🔄 Reset Voting';
+    }
+}
