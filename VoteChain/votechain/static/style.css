@@ -422,3 +422,52 @@ header h1 {
     background: #e9ecef;
     border-left-width: 6px;
 }
+/* Reset Section Styles */
+.reset-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    border: 2px solid #ffc107;
+}
+
+.reset-section h2 {
+    color: #f57c00;
+    margin-bottom: 15px;
+}
+
+.warning-text {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.reset-btn {
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: white;
+    background: linear-gradient(135deg, #f57c00 0%, #ff9800 100%);
+}
+
+.reset-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(245, 124, 0, 0.4);
+}
+
+.reset-btn:active {
+    transform: translateY(-1px);
+}
+
+.reset-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}

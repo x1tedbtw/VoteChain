@@ -183,6 +183,43 @@ def voting_status():
             'message': str(e)
         }), 500
 
+
+@app.route('/api/reset', methods=['POST'])
+def reset_voting():
+    """Reset all votes (admin only)"""
+    try:
+        # Use the first account (contract deployer) as admin
+        admin_account = web3.eth.accounts[0]
+
+        # Check if this account is admin
+        is_admin = contract.functions.isAdmin(admin_account).call()
+
+        if not is_admin:
+            return jsonify({
+                'success': False,
+                'message': 'Only admin can reset voting!'
+            }), 403
+
+        # Call reset function
+        tx_hash = contract.functions.resetVoting().transact({
+            'from': admin_account
+        })
+
+        # Wait for transaction
+        tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+
+        return jsonify({
+            'success': True,
+            'message': 'Voting has been reset!',
+            'transaction_hash': tx_hash.hex(),
+            'block_number': tx_receipt['blockNumber']
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': str(e)
+        }), 500
 if __name__ == '__main__':
     print("=" * 50)
     print("VoteChain - Blockchain Voting System")
