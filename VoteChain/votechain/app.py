@@ -4,39 +4,33 @@ import json
 
 app = Flask(__name__)
 
-# Connect to Ganache
+
 ganache_url = "http://127.0.0.1:7545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 
-# Load contract info
+
 with open('contract_info.json', 'r') as f:
     contract_info = json.load(f)
 
 contract_address = contract_info['address']
 contract_abi = contract_info['abi']
 
-# Create contract instance
 contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
-# Default account for transactions
 web3.eth.default_account = web3.eth.accounts[0]
 
 
 @app.route('/')
 def index():
-    """Render main page"""
     return render_template('index.html')
 
 
 @app.route('/api/vote', methods=['POST'])
 def cast_vote():
-    """Cast a vote on the blockchain"""
     try:
         data = request.json
-        vote_choice = data.get('vote')  # True for Yes, False for No
+        vote_choice = data.get('vote')
         voter_account = data.get('account', web3.eth.accounts[0])
-
-        # Check if already voted
         has_voted = contract.functions.hasVoted(voter_account).call()
         if has_voted:
             return jsonify({
@@ -44,12 +38,10 @@ def cast_vote():
                 'message': 'This account has already voted!'
             }), 400
 
-        # Cast vote transaction
         tx_hash = contract.functions.vote(vote_choice).transact({
             'from': voter_account
         })
 
-        # Wait for transaction to be mined
         tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
 
         return jsonify({
@@ -68,7 +60,6 @@ def cast_vote():
 
 @app.route('/api/results')
 def get_results():
-    """Get current voting results"""
     try:
         results = contract.functions.getResults().call()
         yes_votes = results[0]
@@ -90,7 +81,6 @@ def get_results():
 
 @app.route('/api/accounts')
 def get_accounts():
-    """Get available Ganache accounts"""
     try:
         accounts = web3.eth.accounts
         accounts_with_balance = []
@@ -119,7 +109,6 @@ def get_accounts():
 
 @app.route('/api/blockchain-info')
 def blockchain_info():
-    """Get blockchain information"""
     try:
         latest_block = web3.eth.get_block('latest')
 
@@ -140,7 +129,6 @@ def blockchain_info():
 
 @app.route('/api/voters')
 def get_voters():
-    """Get list of all voters"""
     try:
         voters = contract.functions.getVoters().call()
 
@@ -158,7 +146,6 @@ def get_voters():
 
 @app.route('/api/voting-status')
 def voting_status():
-    """Check if all accounts have voted"""
     try:
         accounts = web3.eth.accounts
         all_voted = True
@@ -186,12 +173,8 @@ def voting_status():
 
 @app.route('/api/reset', methods=['POST'])
 def reset_voting():
-    """Reset all votes (admin only)"""
     try:
-        # Use the first account (contract deployer) as admin
         admin_account = web3.eth.accounts[0]
-
-        # Check if this account is admin
         is_admin = contract.functions.isAdmin(admin_account).call()
 
         if not is_admin:
@@ -200,12 +183,10 @@ def reset_voting():
                 'message': 'Only admin can reset voting!'
             }), 403
 
-        # Call reset function
         tx_hash = contract.functions.resetVoting().transact({
             'from': admin_account
         })
 
-        # Wait for transaction
         tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
 
         return jsonify({

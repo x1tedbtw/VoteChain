@@ -94,7 +94,6 @@ header h1 {
     text-align: center;
 }
 
-/* Voting Finished Message */
 .voting-finished {
     text-align: center;
     padding: 40px 20px;
@@ -142,7 +141,6 @@ header h1 {
     font-weight: 700;
 }
 
-/* Voting Form */
 .account-selector {
     margin-bottom: 20px;
 }
@@ -314,7 +312,6 @@ header h1 {
     border-left: 4px solid #667eea;
 }
 
-/* Scrollbar styling */
 #votersList::-webkit-scrollbar {
     width: 8px;
 }
@@ -333,7 +330,6 @@ header h1 {
     background: #764ba2;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     body {
         padding: 10px;
@@ -384,8 +380,6 @@ header h1 {
         font-size: 1em;
     }
 }
-
-/* Loading animation */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -401,7 +395,6 @@ header h1 {
     animation: spin 1s ease-in-out infinite;
 }
 
-/* Smooth transitions */
 * {
     transition: opacity 0.3s ease-in-out;
 }
@@ -422,7 +415,7 @@ header h1 {
     background: #e9ecef;
     border-left-width: 6px;
 }
-/* Reset Section Styles */
+
 .reset-section {
     background: white;
     border-radius: 15px;
